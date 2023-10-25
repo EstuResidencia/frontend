@@ -25,6 +25,11 @@ class AppTheme {
         centerTitle: true,
         backgroundColor: colorPalette.primaryColor,
       ),
+      bottomNavigationBarTheme: BottomNavigationBarThemeData(
+        backgroundColor: colorPalette.primaryColor,
+        selectedItemColor: colorPalette.secondaryColor,
+        unselectedItemColor: colorPalette.backgroundColor,
+      ),
     );
   }
 }
