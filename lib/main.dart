@@ -1,8 +1,9 @@
-import 'package:estu_residencia_app/config/theme/app_theme.dart';
-import 'package:estu_residencia_app/presentation/screens/home/home_screen.dart';
-import 'package:estu_residencia_app/providers/theme_colors_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:estu_residencia_app/config/router/app_router.dart';
+import 'package:estu_residencia_app/config/theme/app_theme.dart';
+import 'package:estu_residencia_app/providers/theme_colors_provider.dart';
+import 'package:estu_residencia_app/presentation/screens/home/home_screen.dart';
 
 void main() {
   runApp(
@@ -20,10 +21,10 @@ class MainApp extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final ColorPalette colorPalette = ref.watch(colorsProvider);
 
-    return MaterialApp(
+    return MaterialApp.router(
+      routerConfig: appRouter,
       debugShowCheckedModeBanner: false,
       theme: AppTheme(colorPalette: colorPalette).theme(),
-      home: HomeScreen(),
     );
   }
 }

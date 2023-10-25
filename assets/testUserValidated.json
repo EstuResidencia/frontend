@@ -1,0 +1,19 @@
+{
+  "user_id" : 1,
+  "nombre" : "John Doe",
+  "correo" : "jdoe45@gmail.com",
+  "tipo_documento": "CC",
+  "documento": 123456789,
+  "celular": 3137854756,
+  "validado": true,
+  "roles": [
+    {
+      "id": 1,
+      "nombre": "Arrendador"
+    },
+    {
+      "id": 2,
+      "nombre": "Estudiante"
+    }
+  ]
+}

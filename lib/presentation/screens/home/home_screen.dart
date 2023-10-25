@@ -1,9 +1,12 @@
+import 'package:estu_residencia_app/infrastructure/datasources/test_user_datasourcer.dart';
 import 'package:estu_residencia_app/presentation/widgets/shared/primary_button.dart';
 import 'package:estu_residencia_app/presentation/widgets/shared/secondary_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class HomeScreen extends ConsumerWidget {
+  static const name = 'general-home-screen';
+
   const HomeScreen({super.key});
 
   @override
@@ -19,8 +22,9 @@ class HomeScreen extends ConsumerWidget {
               padding: const EdgeInsets.symmetric(horizontal: 8.0),
               child: PrimaryButton(
                 text: 'Buscar residencias',
-                onPressed: () {
-                  print('hola');
+                onPressed: () async {
+                  final user = await TestUserDataSource().getUser();
+                  print(user);
                 },
               ),
             ),

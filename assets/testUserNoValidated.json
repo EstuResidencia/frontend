@@ -1,0 +1,10 @@
+{
+  "user_id" : 1,
+  "nombre" : "John Doe",
+  "correo" : "jdoe45@gmail.com",
+  "tipo_documento": null,
+  "documento": null,
+  "celular": 3137854756,
+  "validado": false,
+  "roles": []
+}
