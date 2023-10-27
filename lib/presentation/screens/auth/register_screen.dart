@@ -27,23 +27,29 @@ class RegisterScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final ColorPalette colorPalette = ref.watch(colorsProvider);
 
-    return Scaffold(
-      appBar: AppBar(
-        title: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 8.0),
-          child: PrimaryButton(
-            text: 'Buscar residencias',
-            onPressed: () {
-              context.go('/');
-            },
-          ),
-        ),
-        backgroundColor: colorPalette.backgroundColor,
-        centerTitle: false,
+    return AnnotatedRegion<SystemUiOverlayStyle>(
+      value: SystemUiOverlayStyle(
+        systemNavigationBarColor: colorPalette.backgroundColor,
+        systemNavigationBarDividerColor: colorPalette.backgroundColor,
       ),
-      body: IndexedStack(
-        index: stepIndex,
-        children: viewRoutesSteps,
+      child: Scaffold(
+        appBar: AppBar(
+          title: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 8.0),
+            child: PrimaryButton(
+              text: 'Buscar residencias',
+              onPressed: () {
+                context.go('/');
+              },
+            ),
+          ),
+          backgroundColor: colorPalette.backgroundColor,
+          centerTitle: false,
+        ),
+        body: IndexedStack(
+          index: stepIndex,
+          children: viewRoutesSteps,
+        ),
       ),
     );
   }

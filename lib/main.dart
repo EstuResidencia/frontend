@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:estu_residencia_app/config/router/app_router.dart';
 import 'package:estu_residencia_app/config/theme/app_theme.dart';
@@ -20,13 +19,6 @@ class MainApp extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final ColorPalette colorPalette = ref.watch(colorsProvider);
-
-    SystemUiOverlayStyle systemUiOverlayStyle = SystemUiOverlayStyle(
-      systemNavigationBarColor: colorPalette.primaryColor,
-      systemNavigationBarDividerColor: colorPalette.primaryColor,
-    );
-
-    SystemChrome.setSystemUIOverlayStyle(systemUiOverlayStyle);
 
     return MaterialApp.router(
       routerConfig: appRouter,
