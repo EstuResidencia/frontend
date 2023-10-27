@@ -24,7 +24,6 @@ class MainApp extends ConsumerWidget {
     SystemUiOverlayStyle systemUiOverlayStyle = SystemUiOverlayStyle(
       systemNavigationBarColor: colorPalette.primaryColor,
       systemNavigationBarDividerColor: colorPalette.primaryColor,
-      systemNavigationBarContrastEnforced: false,
     );
 
     SystemChrome.setSystemUIOverlayStyle(systemUiOverlayStyle);

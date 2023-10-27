@@ -1,0 +1,10 @@
+export "home/home_view.dart";
+export "home/my_requests_view.dart";
+export "home/posts_view.dart";
+export "home/profile_view.dart";
+export "home/requests_view.dart";
+export "home/search_place_view.dart";
+export "register/step_1_name_view.dart";
+export "register/step_2_terms_view.dart";
+export "register/step_3_email_view.dart";
+export "register/step_4_password_view.dart";
