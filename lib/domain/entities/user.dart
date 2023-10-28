@@ -33,6 +33,30 @@ class User {
   String toString() {
     return 'User(userId: $userId, name: $name, email: $email, telefono: $telefono, documentType: $documentType, documentNumber: $documentNumber, isValidated: $isValidated, roles: $roles)';
   }
+
+  // Since User is immutable, we implement a method that allows cloning the
+  // User with slightly different content.
+  User copyWith({
+    int? userId,
+    String? name,
+    String? email,
+    int? telefono,
+    String? documentType,
+    int? documentNumber,
+    bool? isValidated,
+    List<Role>? roles,
+  }) {
+    return User(
+      userId: userId ?? this.userId,
+      name: name ?? this.name,
+      email: email ?? this.email,
+      telefono: telefono ?? this.telefono,
+      isValidated: isValidated ?? this.isValidated,
+      roles: roles ?? this.roles,
+      documentType: documentType ?? this.documentType,
+      documentNumber: documentNumber ?? this.documentNumber,
+    );
+  }
 }
 
 class Role {

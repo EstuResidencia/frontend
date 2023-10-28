@@ -1,5 +1,5 @@
 import 'package:estu_residencia_app/presentation/widgets/shared/tertiary_button.dart';
-import 'package:estu_residencia_app/providers/auth_provider.dart';
+import 'package:estu_residencia_app/providers/login_validation_provider.dart';
 import 'package:estu_residencia_app/providers/theme_colors_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -17,6 +17,10 @@ class LoginScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final ColorPalette colorPalette = ref.watch(colorsProvider);
     final GlobalKey<FormState> loginFormKey = ref.watch(loginKeyProvider);
+    final TextEditingController emailTextEditingController =
+        ref.watch(emailProvider);
+    final TextEditingController passwordTextEditingController =
+        ref.watch(passwordProvider);
 
     return AnnotatedRegion<SystemUiOverlayStyle>(
       value: SystemUiOverlayStyle(
@@ -45,6 +49,7 @@ class LoginScreen extends ConsumerWidget {
                     color: colorPalette.primaryDarkenColor,
                   ),
                 ),
+                const SizedBox(height: 30.0),
                 Text(
                   'Plataforma para la búsqueda y oferta de residencias estudiantiles',
                   textAlign: TextAlign.center,
@@ -59,15 +64,22 @@ class LoginScreen extends ConsumerWidget {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
+                        const SizedBox(height: 30.0),
                         const _LoginForm(),
+                        const SizedBox(height: 40.0),
                         TertiaryButton(
                           text: 'Iniciar Sesión',
                           onPressed: () {
                             if (loginFormKey.currentState!.validate()) {
+                              // en vez de los print, llamar funciona que hace login con
+                              // estos datos y hace peticion a API
+                              print(emailTextEditingController.text);
+                              print(passwordTextEditingController.text);
                               context.go('/');
                             }
                           },
                         ),
+                        const SizedBox(height: 10.0),
                         TextButton(
                           onPressed: () {
                             // context.go('/register/0');
@@ -86,7 +98,7 @@ class LoginScreen extends ConsumerWidget {
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.only(bottom: 48.0),
+                  padding: const EdgeInsets.only(bottom: 80.0),
                   child: TextButton(
                     onPressed: () {
                       context.go('/register/0');
@@ -117,13 +129,17 @@ class _LoginForm extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final GlobalKey<FormState> loginFormKey = ref.watch(loginKeyProvider);
     final bool isPasswordVisible = ref.watch(passwordVisibleProvider);
+    final TextEditingController emailTextEditingController =
+        ref.watch(emailProvider);
+    final TextEditingController passwordTextEditingController =
+        ref.watch(passwordProvider);
 
     return Form(
       key: loginFormKey,
       child: Column(
         children: [
-          const SizedBox(height: 20.0),
           TextFormField(
+            controller: emailTextEditingController,
             decoration: const InputDecoration(
               hintText: 'Ingresa tu correo electrónico',
             ),
@@ -137,6 +153,7 @@ class _LoginForm extends ConsumerWidget {
             },
           ),
           TextFormField(
+            controller: passwordTextEditingController,
             obscureText: !isPasswordVisible,
             decoration: InputDecoration(
               hintText: 'Ingresa tu contraseña',
@@ -157,7 +174,6 @@ class _LoginForm extends ConsumerWidget {
               return null;
             },
           ),
-          const SizedBox(height: 20.0)
         ],
       ),
     );
