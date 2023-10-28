@@ -79,20 +79,6 @@ class LoginScreen extends ConsumerWidget {
                             }
                           },
                         ),
-                        const SizedBox(height: 10.0),
-                        TextButton(
-                          onPressed: () {
-                            // context.go('/register/0');
-                          },
-                          child: Text(
-                            '¿Olvidaste tu contraseña?',
-                            style: TextStyle(
-                              fontSize: 16.0,
-                              color: colorPalette.secondaryDarkenColor,
-                              decoration: TextDecoration.underline,
-                            ),
-                          ),
-                        ),
                       ],
                     ),
                   ),
