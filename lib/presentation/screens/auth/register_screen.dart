@@ -34,15 +34,7 @@ class RegisterScreen extends ConsumerWidget {
       ),
       child: Scaffold(
         appBar: AppBar(
-          title: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 8.0),
-            child: PrimaryButton(
-              text: 'Buscar residencias',
-              onPressed: () {
-                context.go('/');
-              },
-            ),
-          ),
+          title: Row(),
           backgroundColor: colorPalette.backgroundColor,
           centerTitle: false,
         ),

@@ -4,7 +4,7 @@ import 'package:estu_residencia_app/presentation/views/views.dart';
 import 'package:go_router/go_router.dart';
 
 final appRouter = GoRouter(
-  initialLocation: '/register/0',
+  initialLocation: '/login',
   routes: [
     GoRoute(
       path: '/login',
