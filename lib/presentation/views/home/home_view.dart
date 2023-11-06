@@ -27,7 +27,6 @@ class HomeView extends StatelessWidget {
             child: SecondaryButton(
               text: 'Publicar inmueble',
               onPressed: () {
-                context.go('/register/0');
                 print('hola 2');
               },
             ),

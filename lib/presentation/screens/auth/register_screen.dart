@@ -162,6 +162,9 @@ class RegisterScreen extends ConsumerWidget {
                           ref.read(userProvider.notifier).restoreUser();
                           Navigator.pop(context);
                           context.go('/register/complete');
+                          ref.read(nameProviderController).clear();
+                          ref.read(emailProviderController).clear();
+                          ref.read(telefonoProviderController).clear();
                         } on PlatformException catch (e) {
                           Navigator.pop(context);
                           late String message;

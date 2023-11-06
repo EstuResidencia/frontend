@@ -88,6 +88,8 @@ class LoginScreen extends ConsumerWidget {
                                     user;
                                 Navigator.pop(context);
                                 context.go('/');
+                                emailTextEditingController.clear();
+                                passwordTextEditingController.clear();
                               } on PlatformException catch (e) {
                                 Navigator.pop(context);
                                 late String message;
