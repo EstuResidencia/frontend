@@ -1,4 +1,6 @@
-import 'package:estu_residencia_app/providers/register_provider.dart';
+import 'package:estu_residencia_app/domain/entities/user.dart';
+import 'package:estu_residencia_app/providers/global_provider.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -6,25 +8,25 @@ class ProfileView extends ConsumerWidget {
   const ProfileView({super.key});
 
   @override
-  Widget build(BuildContext context,WidgetRef ref ) {
-
-    final User userData = ref.watch(userProvider);
-    
+  Widget build(BuildContext context, WidgetRef ref) {
+    final User? user = ref.watch(loggedUserProvider);
 
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 10),
       child: Column(
         children: [
           const Padding(
-            padding: EdgeInsets.all(40.0),
+            padding: EdgeInsets.fromLTRB(40, 40, 40, 20),
             child: CircleAvatar(
               backgroundImage: NetworkImage(
-                  'https://flutter.github.io/assets-for-api-docs/assets/widgets/owl.jpg'),
+                  'https://t4.ftcdn.net/jpg/03/49/49/79/360_F_349497933_Ly4im8BDmHLaLzgyKg2f2yZOvJjBtlw5.webp'),
               radius: 100,
             ),
           ),
-          Text('${userData.email}', textScaleFactor: 1.4),
-          const Text('Nombre pepito perez'),
+          Text('${user?.name}', textScaleFactor: 2),
+          SizedBox(height: 10),
+          Text('${user?.email}', textScaleFactor: 1.4),
+          SizedBox(height: 40),
           TextButton.icon(
             onPressed: () {},
             icon: const Icon(Icons.announcement_rounded),

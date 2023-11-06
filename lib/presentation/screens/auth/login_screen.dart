@@ -1,4 +1,10 @@
+// ignore_for_file: use_build_context_synchronously
+
+import 'package:estu_residencia_app/domain/entities/user.dart';
+import 'package:estu_residencia_app/infrastructure/datasources/backend_user_datasourcer.dart';
+import 'package:estu_residencia_app/presentation/widgets/shared/alerts.dart';
 import 'package:estu_residencia_app/presentation/widgets/shared/tertiary_button.dart';
+import 'package:estu_residencia_app/providers/global_provider.dart';
 import 'package:estu_residencia_app/providers/login_validation_provider.dart';
 import 'package:estu_residencia_app/providers/theme_colors_provider.dart';
 import 'package:flutter/material.dart';
@@ -69,13 +75,30 @@ class LoginScreen extends ConsumerWidget {
                         const SizedBox(height: 40.0),
                         TertiaryButton(
                           text: 'Iniciar Sesión',
-                          onPressed: () {
+                          onPressed: () async {
                             if (loginFormKey.currentState!.validate()) {
-                              // en vez de los print, llamar funciona que hace login con
-                              // estos datos y hace peticion a API
-                              print(emailTextEditingController.text);
-                              print(passwordTextEditingController.text);
-                              context.go('/');
+                              showLoaderDialog(context);
+                              try {
+                                final User user =
+                                    await BackendUserDataSource().loginUser(
+                                  emailTextEditingController.text,
+                                  passwordTextEditingController.text,
+                                );
+                                ref.read(loggedUserProvider.notifier).state =
+                                    user;
+                                Navigator.pop(context);
+                                context.go('/');
+                              } on PlatformException catch (e) {
+                                Navigator.pop(context);
+                                late String message;
+                                if (e.code == '400') {
+                                  message = 'Revisa los datos ingresados';
+                                } else {
+                                  message =
+                                      'Ocurrió un error inesperado, estamos trabajando en ello';
+                                }
+                                showErrorDialog(context, message);
+                              }
                             }
                           },
                         ),

@@ -5,17 +5,17 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 // This class should not expose state outside of its "state" property, which means
 // no public getters/properties!
 // The public methods on this class will be what allow the UI to modify the state.
-class User {
+class UserRegister {
   final String? name;
   final String? email;
   final int? telefono;
   final String? password;
 
-  User({
-    required this.name,
-    required this.email,
-    required this.telefono,
-    required this.password,
+  UserRegister({
+    this.name,
+    this.email,
+    this.telefono,
+    this.password,
   });
 
   @override
@@ -25,14 +25,14 @@ class User {
 
   // Since User is immutable, we implement a method that allows cloning the
   // User with slightly different content.
-  User copyWith({
+  UserRegister copyWith({
     int? userId,
     String? name,
     String? email,
     int? telefono,
     String? password,
   }) {
-    return User(
+    return UserRegister(
       name: name ?? this.name,
       email: email ?? this.email,
       telefono: telefono ?? this.telefono,
@@ -41,16 +41,11 @@ class User {
   }
 }
 
-class UserNotifier extends Notifier<User> {
+class UserNotifier extends Notifier<UserRegister> {
   // We initialize the list of todos to an empty list
   @override
-  User build() {
-    return User(
-      name: null,
-      email: null,
-      telefono: null,
-      password: null,
-    );
+  UserRegister build() {
+    return UserRegister();
   }
 
   // Let's allow the UI to add todos.
@@ -67,11 +62,15 @@ class UserNotifier extends Notifier<User> {
       password: password ?? state.password,
     );
   }
+
+  void restoreUser() {
+    state = UserRegister();
+  }
 }
 
 // Finally, we are using NotifierProvider to allow the UI to interact with
 // our UserNotifier class.
-final userProvider = NotifierProvider<UserNotifier, User>(() {
+final userProvider = NotifierProvider<UserNotifier, UserRegister>(() {
   return UserNotifier();
 });
 
@@ -81,14 +80,13 @@ final telefonoFormKey = GlobalKey<FormState>();
 final passwordFormKey = GlobalKey<FormState>();
 
 final nameFormKeyProvider = StateProvider((ref) => nameFormKey);
+final acceptedTermsProvider = StateProvider<bool>((ref) => false);
 final emailFormKeyProvider = StateProvider((ref) => emailFormKey);
-final telefonoFormKeyProvider = StateProvider((ref) => telefonoFormKey);
 final passwordFormKeyProvider = StateProvider((ref) => passwordFormKey);
 
 final nameTextEditingController = TextEditingController();
 final emailTextEditingController = TextEditingController();
 final telefonoTextEditingController = TextEditingController();
-final passwordTextEditingController = TextEditingController();
 
 final nameProviderController =
     StateProvider((ref) => nameTextEditingController);
@@ -96,5 +94,6 @@ final emailProviderController =
     StateProvider((ref) => emailTextEditingController);
 final telefonoProviderController =
     StateProvider((ref) => telefonoTextEditingController);
-final passwordProviderController =
-    StateProvider((ref) => passwordTextEditingController);
+
+final password1ValueProvider = StateProvider((ref) => '');
+final password2ValueProvider = StateProvider((ref) => '');

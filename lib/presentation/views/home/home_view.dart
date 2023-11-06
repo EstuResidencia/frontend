@@ -1,4 +1,3 @@
-import 'package:estu_residencia_app/infrastructure/datasources/test_user_datasourcer.dart';
 import 'package:estu_residencia_app/presentation/widgets/shared/primary_button.dart';
 import 'package:estu_residencia_app/presentation/widgets/shared/secondary_button.dart';
 import 'package:flutter/material.dart';
@@ -18,8 +17,8 @@ class HomeView extends StatelessWidget {
             child: PrimaryButton(
               text: 'Buscar residencias',
               onPressed: () async {
-                final user = await TestUserDataSource().getUser();
-                print(user);
+                // final user = await TestUserDataSource().getUser();
+                // print(user);
               },
             ),
           ),
