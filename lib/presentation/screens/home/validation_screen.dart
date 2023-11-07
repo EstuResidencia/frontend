@@ -1,5 +1,12 @@
+// ignore_for_file: use_build_context_synchronously
+
+import 'package:estu_residencia_app/domain/entities/user.dart';
+import 'package:estu_residencia_app/infrastructure/datasources/backend_user_datasourcer.dart';
+import 'package:estu_residencia_app/presentation/widgets/shared/alerts.dart';
 import 'package:estu_residencia_app/presentation/widgets/shared/primary_button.dart';
 import 'package:estu_residencia_app/presentation/widgets/shared/tertiary_button.dart';
+import 'package:estu_residencia_app/providers/global_provider.dart';
+import 'package:estu_residencia_app/providers/register_provider.dart';
 import 'package:estu_residencia_app/providers/theme_colors_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -26,6 +33,7 @@ class ValidationScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final ColorPalette colorPalette = ref.watch(colorsProvider);
+    final User? user = ref.watch(loggedUserProvider);
     final GlobalKey<FormState> validateFormKey = ref.watch(validateKeyProvider);
     final TextEditingController docNumberTextEditingController =
         ref.watch(docNumberCotrollerProvider);
@@ -104,15 +112,34 @@ class ValidationScreen extends ConsumerWidget {
               const SizedBox(height: 80),
               TertiaryButton(
                 text: 'Enviar',
-                onPressed: () {
+                onPressed: () async {
                   if (validateFormKey.currentState!.validate()) {
-                    print(dropdownValue);
-                    print(docNumberTextEditingController.text);
-                    print(role);
-                    print('validado ${true}');
-                    ref.read(dropdownValueProvider.notifier).state = null;
-                    docNumberTextEditingController.clear();
-                    //TODO hacer patch a user
+                    showLoaderDialog(context);
+                    try {
+                      final User updatedUser =
+                          await BackendUserDataSource().validateUser(
+                        userId: user?.userId,
+                        documentNumber:
+                            int.parse(docNumberTextEditingController.text),
+                        docType: dropdownValue ?? "CC",
+                        role: role,
+                      );
+                      ref.read(dropdownValueProvider.notifier).state = null;
+                      docNumberTextEditingController.clear();
+                      ref.read(loggedUserProvider.notifier).state = updatedUser;
+                      Navigator.of(context, rootNavigator: true).pop();
+                      context.go('/');
+                    } on PlatformException catch (e) {
+                      Navigator.of(context, rootNavigator: true).pop();
+                      late String message;
+                      if (e.code == '400') {
+                        message = 'Revisa los datos ingresados';
+                      } else {
+                        message =
+                            'Ocurrió un error inesperado, estamos trabajando en ello';
+                      }
+                      showErrorDialog(context, message);
+                    }
                   }
                 },
               ),

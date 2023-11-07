@@ -58,4 +58,37 @@ class BackendUserDataSource extends UserDataSource {
       }
     }
   }
+
+  @override
+  Future<User> validateUser({
+    int? userId,
+    required int documentNumber,
+    required String docType,
+    required int role,
+  }) async {
+    try {
+      Response response = await Dio().patch(
+        'https://estu-residencia-api.onrender.com/usuario/$userId/',
+        data: {
+          'tipo_documento': docType,
+          'documento': documentNumber,
+          'rol': role,
+          'validado': true,
+        },
+      );
+      return User.fromJson(response.data['usuario']);
+    } on DioException catch (e) {
+      if (e.response?.statusCode == 400) {
+        throw PlatformException(
+          code: '400',
+          message: e.response?.data.toString(),
+        );
+      } else {
+        throw PlatformException(
+          code: '500',
+          message: e.response?.data.toString(),
+        );
+      }
+    }
+  }
 }
