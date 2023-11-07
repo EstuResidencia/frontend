@@ -97,7 +97,7 @@ class ValidationScreen extends ConsumerWidget {
                       controller: docNumberTextEditingController,
                       keyboardType: TextInputType.number,
                       decoration: const InputDecoration(
-                        hintText: 'Ingresa tu documento de identidad',
+                        hintText: 'Número de documento',
                       ),
                       validator: (value) {
                         if (value == null || value.isEmpty) {
