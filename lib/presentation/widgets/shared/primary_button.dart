@@ -27,10 +27,14 @@ class PrimaryButton extends ConsumerWidget {
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(10),
           ),
+          padding: const EdgeInsets.symmetric(vertical: 15),
         ),
         child: Text(
           text ?? 'Button 1',
-          style: TextStyle(color: colorPalette.secondaryColor),
+          style: TextStyle(
+            color: colorPalette.secondaryColor,
+            fontSize: 18,
+          ),
         ),
       ),
     );

@@ -69,5 +69,13 @@ final appRouter = GoRouter(
         ),
       ],
     ),
+    GoRoute(
+      path: '/validate/:role',
+      name: ValidationScreen.name,
+      builder: (context, state) {
+        final stepIndex = state.pathParameters['role'] ?? '0';
+        return ValidationScreen(role: int.parse(stepIndex));
+      },
+    ),
   ],
 );
