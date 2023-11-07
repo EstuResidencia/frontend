@@ -50,9 +50,21 @@ final appRouter = GoRouter(
           },
         ),
         GoRoute(
+          path: '/myrequests',
+          builder: (context, state) {
+            return const MyRequestsView();
+          },
+        ),
+        GoRoute(
           path: '/profile',
           builder: (context, state) {
             return const ProfileView();
+          },
+        ),
+        GoRoute(
+          path: '/search',
+          builder: (context, state) {
+            return const SearchPlaceView();
           },
         ),
       ],

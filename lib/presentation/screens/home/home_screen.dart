@@ -1,4 +1,6 @@
+import 'package:estu_residencia_app/domain/entities/user.dart';
 import 'package:estu_residencia_app/presentation/widgets/shared/custom_bottom_nav_bar.dart';
+import 'package:estu_residencia_app/providers/global_provider.dart';
 import 'package:estu_residencia_app/providers/theme_colors_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -17,6 +19,8 @@ class HomeScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final ColorPalette colorPalette = ref.watch(colorsProvider);
+    final User? user = ref.watch(loggedUserProvider);
+    final int? role = user?.role;
 
     return AnnotatedRegion<SystemUiOverlayStyle>(
       value: SystemUiOverlayStyle(
@@ -28,7 +32,7 @@ class HomeScreen extends ConsumerWidget {
           title: const Text('EstuResidencia'),
         ),
         body: childView,
-        bottomNavigationBar: const CustomBottomNavBar(),
+        bottomNavigationBar: CustomBottomNavBar(role: role),
       ),
     );
   }
