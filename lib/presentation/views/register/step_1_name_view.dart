@@ -56,7 +56,7 @@ class Step1NameView extends ConsumerWidget {
               return null;
             },
             onChanged: (value) {
-              ref.read(userProvider.notifier).changeUser(name: value);
+              ref.read(userProvider.notifier).changeUser(name: value.trim());
               print(ref.read(userProvider));
             },
           ),

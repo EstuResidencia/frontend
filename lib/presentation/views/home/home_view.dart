@@ -1,3 +1,4 @@
+import 'package:estu_residencia_app/presentation/widgets/shared/alerts.dart';
 import 'package:estu_residencia_app/presentation/widgets/shared/primary_button.dart';
 import 'package:estu_residencia_app/presentation/widgets/shared/secondary_button.dart';
 import 'package:flutter/material.dart';
@@ -16,19 +17,14 @@ class HomeView extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 8.0),
             child: PrimaryButton(
               text: 'Buscar residencias',
-              onPressed: () async {
-                // final user = await TestUserDataSource().getUser();
-                // print(user);
-              },
+              onPressed: () {},
             ),
           ),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 8.0),
             child: SecondaryButton(
               text: 'Publicar inmueble',
-              onPressed: () {
-                print('hola 2');
-              },
+              onPressed: () {},
             ),
           ),
         ],

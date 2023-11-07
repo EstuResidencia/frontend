@@ -50,7 +50,7 @@ class Step3EmailView extends ConsumerWidget {
               return null;
             },
             onChanged: (value) {
-              ref.read(userProvider.notifier).changeUser(email: value);
+              ref.read(userProvider.notifier).changeUser(email: value.trim());
               print(ref.read(userProvider));
             },
           ),
@@ -85,8 +85,7 @@ class Step3EmailView extends ConsumerWidget {
               if (value.isEmpty) return;
               ref
                   .read(userProvider.notifier)
-                  .changeUser(telefono: int.parse(value));
-              print(ref.read(userProvider));
+                  .changeUser(telefono: int.parse(value.trim()));
             },
           ),
         ],

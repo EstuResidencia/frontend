@@ -123,6 +123,11 @@ class RegisterScreen extends ConsumerWidget {
                       if (acceptedTerms) {
                         FocusManager.instance.primaryFocus?.unfocus();
                         context.go('/register/${stepIndex + 1}');
+                      } else {
+                        showErrorDialog(
+                          context,
+                          'Debes aceptar los términos y condiciones para continuar',
+                        );
                       }
                     } else if (stepIndex == viewRoutesSteps.length - 1) {
                       FocusManager.instance.primaryFocus?.unfocus();
@@ -143,7 +148,8 @@ class RegisterScreen extends ConsumerWidget {
                               actions: [
                                 TextButton(
                                   onPressed: () {
-                                    Navigator.pop(context, 'OK');
+                                    Navigator.of(context, rootNavigator: true)
+                                        .pop();
                                   },
                                   child: const Text('Ok'),
                                 ),
@@ -160,13 +166,15 @@ class RegisterScreen extends ConsumerWidget {
                           await BackendUserDataSource()
                               .registerUser(ref.read(userProvider));
                           ref.read(userProvider.notifier).restoreUser();
-                          Navigator.pop(context);
+                          Navigator.of(context, rootNavigator: true).pop();
                           context.go('/register/complete');
                           ref.read(nameProviderController).clear();
                           ref.read(emailProviderController).clear();
                           ref.read(telefonoProviderController).clear();
+                          ref.read(acceptedTermsProvider.notifier).state =
+                              false;
                         } on PlatformException catch (e) {
-                          Navigator.pop(context);
+                          Navigator.of(context, rootNavigator: true).pop();
                           late String message;
                           if (e.code == '400') {
                             message =

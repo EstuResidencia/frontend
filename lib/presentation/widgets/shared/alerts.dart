@@ -1,15 +1,23 @@
 import 'package:flutter/material.dart';
 
 showLoaderDialog(BuildContext context) {
-  AlertDialog alert = AlertDialog(
+  AlertDialog alert = const AlertDialog(
     titlePadding: EdgeInsets.zero,
     actionsPadding: EdgeInsets.zero,
-    content: Row(
+    contentPadding: EdgeInsets.symmetric(horizontal: 0, vertical: 20),
+    content: Column(
+      mainAxisSize: MainAxisSize.min,
+      mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        const CircularProgressIndicator(),
-        Container(
-          margin: const EdgeInsets.only(left: 7),
-          child: const Text("Cargando..."),
+        CircularProgressIndicator(),
+        SizedBox(height: 20),
+        Text(
+          "Cargando...",
+          style: TextStyle(
+            fontSize: 22.0,
+            fontWeight: FontWeight.normal,
+          ),
         ),
       ],
     ),
@@ -25,20 +33,37 @@ showLoaderDialog(BuildContext context) {
 
 showErrorDialog(BuildContext context, String? message) {
   AlertDialog alert = AlertDialog(
-    content: Expanded(
-      child: Text(message ?? 'Ocurrió un error'),
+    titlePadding: const EdgeInsets.all(0),
+    content: Text(
+      message ?? 'Ocurrió un error',
+      textAlign: TextAlign.center,
+      style: const TextStyle(
+        fontSize: 18.0,
+        fontWeight: FontWeight.normal,
+      ),
     ),
+    contentPadding: const EdgeInsets.fromLTRB(20, 20, 20, 0),
+    actionsPadding: const EdgeInsets.fromLTRB(20, 10, 20, 20),
+    actionsAlignment: MainAxisAlignment.center,
     actions: [
       TextButton(
         onPressed: () {
-          Navigator.pop(context, 'OK');
+          Navigator.of(context, rootNavigator: true).pop();
         },
-        child: const Text('Ok'),
+        style: TextButton.styleFrom(
+          foregroundColor: const Color(0xFF5E82C8),
+        ),
+        child: const Text(
+          'Ok',
+          style: TextStyle(
+            fontSize: 18.0,
+            fontWeight: FontWeight.normal,
+          ),
+        ),
       ),
     ],
   );
   showDialog(
-    barrierDismissible: false,
     context: context,
     builder: (BuildContext context) {
       return alert;

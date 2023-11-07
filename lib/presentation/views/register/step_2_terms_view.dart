@@ -1,4 +1,3 @@
-import 'package:estu_residencia_app/presentation/widgets/shared/tertiary_button.dart';
 import 'package:estu_residencia_app/providers/register_provider.dart';
 import 'package:estu_residencia_app/providers/theme_colors_provider.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -136,7 +135,9 @@ class LegalCard extends StatelessWidget {
                                 ),
                               ),
                               IconButton(
-                                onPressed: () => Navigator.pop(context),
+                                onPressed: () =>
+                                    Navigator.of(context, rootNavigator: true)
+                                        .pop(),
                                 icon: Icon(
                                   Icons.close,
                                   color: colorPalette.secondaryDarkenColor,
@@ -155,8 +156,14 @@ class LegalCard extends StatelessWidget {
                           ),
                           actions: <Widget>[
                             TextButton(
-                              onPressed: () => Navigator.pop(context, 'OK'),
+                              onPressed: () =>
+                                  Navigator.of(context, rootNavigator: true)
+                                      .pop(),
                               child: const Text('OK'),
+                              style: TextButton.styleFrom(
+                                foregroundColor:
+                                    colorPalette.primaryDarkenColor,
+                              ),
                             ),
                           ],
                         ),

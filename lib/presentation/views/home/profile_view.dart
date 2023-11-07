@@ -45,6 +45,7 @@ class ProfileView extends ConsumerWidget {
           ),
           TextButton.icon(
             onPressed: () {
+              ref.read(selectedSectionProvider.notifier).state = 0;
               context.go('/login');
             },
             icon: const Icon(

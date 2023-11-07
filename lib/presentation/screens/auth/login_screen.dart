@@ -86,12 +86,14 @@ class LoginScreen extends ConsumerWidget {
                                 );
                                 ref.read(loggedUserProvider.notifier).state =
                                     user;
-                                Navigator.pop(context);
+                                Navigator.of(context, rootNavigator: true)
+                                    .pop();
                                 context.go('/');
                                 emailTextEditingController.clear();
                                 passwordTextEditingController.clear();
                               } on PlatformException catch (e) {
-                                Navigator.pop(context);
+                                Navigator.of(context, rootNavigator: true)
+                                    .pop();
                                 late String message;
                                 if (e.code == '400') {
                                   message = 'Revisa los datos ingresados';
