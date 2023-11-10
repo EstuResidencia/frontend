@@ -14,8 +14,7 @@ class ProfileView extends ConsumerWidget {
     final User? user = ref.watch(loggedUserProvider);
     final ColorPalette colorPalette = ref.watch(colorsProvider);
 
-    return Expanded(
-      child: SingleChildScrollView(
+    return  SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.symmetric(vertical: 10),
           child: Column(
@@ -274,7 +273,7 @@ class ProfileView extends ConsumerWidget {
             ],
           ),
         ),
-      ),
-    );
+      )
+    ;
   }
 }
