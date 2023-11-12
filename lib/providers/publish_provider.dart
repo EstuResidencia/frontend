@@ -1,4 +1,7 @@
 import 'package:estu_residencia_app/domain/entities/post.dart';
+import 'package:estu_residencia_app/domain/entities/user.dart';
+import 'package:estu_residencia_app/infrastructure/datasources/backend_user_datasourcer.dart';
+import 'package:estu_residencia_app/providers/global_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -126,3 +129,5 @@ class PostNotifier extends Notifier<PostPublish> {
 final postPublishProvider = NotifierProvider<PostNotifier, PostPublish>(() {
   return PostNotifier();
 });
+
+final postListProvider = StateProvider<List<Post>?>((ref) => null);

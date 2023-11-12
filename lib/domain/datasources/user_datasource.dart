@@ -21,4 +21,7 @@ abstract class UserDataSource {
     required int floor,
     required List<PostImage> images,
   });
+  Future<List<Post>> getOwnerPosts({
+    required int arrendadorId,
+  });
 }

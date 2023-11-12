@@ -1,5 +1,4 @@
 // ignore_for_file: use_build_context_synchronously
-
 import 'package:estu_residencia_app/domain/entities/post.dart';
 import 'package:estu_residencia_app/domain/entities/user.dart';
 import 'package:estu_residencia_app/infrastructure/datasources/backend_user_datasourcer.dart';
@@ -84,7 +83,7 @@ class PublishPropertyScreen extends ConsumerWidget {
           padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 30),
           child: IndexedStack(
             index: stepIndex,
-            children: [
+            children: const [
               _Step1Publish(),
               _Step2Publish(),
             ],

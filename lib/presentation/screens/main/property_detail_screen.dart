@@ -1,18 +1,36 @@
+import 'dart:convert';
+
+import 'package:estu_residencia_app/domain/entities/post.dart';
 import 'package:estu_residencia_app/presentation/widgets/shared/review_slide.dart';
+import 'package:estu_residencia_app/providers/publish_provider.dart';
 import 'package:estu_residencia_app/providers/theme_colors_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
+List<Map<String, dynamic>> estados = [
+  {'estado': 'Pendiente', 'color': const Color(0xFFE87D00)},
+  {'estado': 'Aprobada', 'color': const Color(0xFF138F17)},
+  {'estado': 'Cancelada', 'color': const Color(0xFF19569F)},
+  {'estado': 'Rechazada', 'color': const Color.fromARGB(255, 232, 5, 5)}
+];
+
 class PropertyDetailScreen extends ConsumerWidget {
   static const name = 'property-detail-screen';
 
-  const PropertyDetailScreen({super.key});
+  final int postId;
+
+  const PropertyDetailScreen({super.key, required this.postId});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final ColorPalette colorPalette = ref.watch(colorsProvider);
+    final Post? post = ref
+        .watch(postListProvider)!
+        .where((element) => element.postId == postId)
+        .firstOrNull;
+
     return Scaffold(
         appBar: AppBar(
           title: Row(
@@ -20,7 +38,7 @@ class PropertyDetailScreen extends ConsumerWidget {
             children: [
               IconButton(
                 onPressed: () {
-                  context.go('/requests');
+                  context.go('/posts');
                 },
                 icon: const Icon(Icons.arrow_back_ios),
               ),
@@ -49,11 +67,19 @@ class PropertyDetailScreen extends ConsumerWidget {
             children: [
               Container(
                 padding: const EdgeInsets.fromLTRB(10, 15, 10, 10),
-                child: Image.network(
-                  'https://picsum.photos/id/${1}/600/350',
-                  height: 200,
+                child: Container(
                   width: MediaQuery.of(context).size.width,
-                  fit: BoxFit.cover,
+                  height: 200,
+                  decoration: BoxDecoration(
+                    image: DecorationImage(
+                      image: MemoryImage(
+                        base64Decode(
+                          post!.images[0].data,
+                        ),
+                      ),
+                      fit: BoxFit.cover,
+                    ),
+                  ),
                 ),
               ),
               Column(
@@ -65,7 +91,7 @@ class PropertyDetailScreen extends ConsumerWidget {
                         Icon(Icons.location_on_outlined,
                             color: colorPalette.secondaryColor),
                         Text(
-                          "variable = direccion",
+                          post.direccion,
                           style: TextStyle(
                               fontSize: 16, color: colorPalette.secondaryColor),
                         ),
@@ -80,7 +106,7 @@ class PropertyDetailScreen extends ConsumerWidget {
                         Icon(Icons.attach_money_outlined,
                             color: colorPalette.secondaryColor),
                         Text(
-                          "Variable = canon_cop COP/mes",
+                          "${post.canonCop} COP/mes",
                           style: TextStyle(
                             fontSize: 20,
                             color: colorPalette.secondaryColor,
@@ -96,12 +122,12 @@ class PropertyDetailScreen extends ConsumerWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
-                          "Variable = area_m2",
+                          "${post.areaM2} m2",
                           style: TextStyle(
                               fontSize: 16, color: colorPalette.secondaryColor),
                         ),
                         Text(
-                          "Variable = piso ",
+                          "Piso ${post.floor}",
                           style: TextStyle(
                               fontSize: 16, color: colorPalette.secondaryColor),
                         ),
@@ -139,14 +165,16 @@ class PropertyDetailScreen extends ConsumerWidget {
                     alignment: Alignment.center,
                     decoration: BoxDecoration(
                       border: Border.all(
-                        color: Colors.red,
+                        color: estados[post.status - 1]['color'] as Color,
                         width: 1,
                       ),
                       borderRadius: BorderRadius.circular(15),
                     ),
-                    child: const Text(
-                      'Estado',
-                      style: TextStyle(fontSize: 14, color: Colors.red),
+                    child: Text(
+                      '${estados[post.status - 1]['estado']}',
+                      style: TextStyle(
+                          fontSize: 14,
+                          color: estados[post.status - 1]['color'] as Color),
                     ),
                   ),
                   Divider(
@@ -163,7 +191,10 @@ class PropertyDetailScreen extends ConsumerWidget {
                         fontWeight: FontWeight.bold,
                         color: colorPalette.secondaryColor),
                   ),
-                  const Placeholder(fallbackHeight: 200,),
+                  SizedBox(
+                    height: 100,
+                    child: Text(post.description),
+                  ),
                   Divider(
                     height: 30,
                     thickness: 2,
@@ -179,7 +210,6 @@ class PropertyDetailScreen extends ConsumerWidget {
                         color: colorPalette.secondaryColor),
                   ),
                   const ReviewsSlideshow(),
-
                   const SizedBox(
                     height: 50,
                   )

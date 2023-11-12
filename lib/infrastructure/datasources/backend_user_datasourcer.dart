@@ -133,4 +133,30 @@ class BackendUserDataSource extends UserDataSource {
       }
     }
   }
+
+  @override
+  Future<List<Post>> getOwnerPosts({
+    required int arrendadorId,
+  }) async {
+    try {
+      Response response = await Dio().get(
+        'https://estu-residencia-api.onrender.com/publicacion/listar/$arrendadorId/',
+      );
+      final result =
+          (response.data as List).map((e) => Post.fromJson(e)).toList();
+      return result;
+    } on DioException catch (e) {
+      if (e.response?.statusCode == 400) {
+        throw PlatformException(
+          code: '400',
+          message: e.response?.data.toString(),
+        );
+      } else {
+        throw PlatformException(
+          code: '500',
+          message: e.response?.data.toString(),
+        );
+      }
+    }
+  }
 }

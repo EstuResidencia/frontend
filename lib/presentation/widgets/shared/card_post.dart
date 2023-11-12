@@ -1,3 +1,6 @@
+import 'dart:convert';
+
+import 'package:estu_residencia_app/domain/entities/post.dart';
 import 'package:estu_residencia_app/providers/theme_colors_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -31,7 +34,7 @@ var comunas = {
 class CardPost extends StatelessWidget {
   final String label;
   final double elevation;
-  final Map values;
+  final Post values;
   final ColorPalette colorPalette;
 
   const CardPost({
@@ -49,11 +52,19 @@ class CardPost extends StatelessWidget {
       elevation: elevation,
       child: Row(
         children: [
-          Image.network(
-            'https://picsum.photos/id/${elevation.toInt()}/600/350',
-            height: 200,
+          Container(
             width: 140,
-            fit: BoxFit.cover,
+            height: 200,
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                image: MemoryImage(
+                  base64Decode(
+                    values.images[0].data,
+                  ),
+                ),
+                fit: BoxFit.cover,
+              ),
+            ),
           ),
           const SizedBox(width: 12),
           Expanded(
@@ -66,9 +77,11 @@ class CardPost extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      "Publicación $elevation",
+                      (values.calificacion / 2).toStringAsFixed(1),
                       style: const TextStyle(
-                          fontSize: 16, fontWeight: FontWeight.bold),
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                     Padding(
                       padding: const EdgeInsets.fromLTRB(0, 0, 10, 0),
@@ -76,18 +89,17 @@ class CardPost extends StatelessWidget {
                         alignment: Alignment.centerRight,
                         decoration: BoxDecoration(
                           border: Border.all(
-                            color:
-                                estados[values["status"] - 1]['color'] as Color,
+                            color: estados[values.status - 1]['color'] as Color,
                             width: 1,
                           ),
                           borderRadius: BorderRadius.circular(8),
                         ),
                         child: Text(
-                          '${estados[values["status"] - 1]['estado']}',
+                          '${estados[values.status - 1]['estado']}',
                           style: TextStyle(
-                              fontSize: 11,
-                              color: estados[values["status"] - 1]['color']
-                                  as Color),
+                            fontSize: 11,
+                            color: estados[values.status - 1]['color'] as Color,
+                          ),
                         ),
                       ),
                     ),
@@ -97,12 +109,16 @@ class CardPost extends StatelessWidget {
                   padding: const EdgeInsets.only(top: 10),
                   child: Row(
                     children: [
-                      Icon(Icons.location_on_outlined,
-                          color: colorPalette.secondaryColor),
+                      Icon(
+                        Icons.location_on_outlined,
+                        color: colorPalette.secondaryColor,
+                      ),
                       Text(
-                        values["direccion"],
+                        values.direccion,
                         style: TextStyle(
-                            fontSize: 16, color: colorPalette.secondaryColor),
+                          fontSize: 16,
+                          color: colorPalette.secondaryColor,
+                        ),
                       ),
                     ],
                   ),
@@ -111,10 +127,12 @@ class CardPost extends StatelessWidget {
                   padding: const EdgeInsets.only(top: 10),
                   child: Row(
                     children: [
-                      Icon(Icons.attach_money_outlined,
-                          color: colorPalette.secondaryColor),
+                      Icon(
+                        Icons.attach_money_outlined,
+                        color: colorPalette.secondaryColor,
+                      ),
                       Text(
-                        "${values['canon_cop']} COP/mes",
+                        "${values.canonCop} COP/mes",
                         style: TextStyle(
                           fontSize: 16,
                           color: colorPalette.secondaryColor,
@@ -129,14 +147,18 @@ class CardPost extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        "${values["area_m2"]} m2",
+                        "${values.areaM2} m2",
                         style: TextStyle(
-                            fontSize: 16, color: colorPalette.secondaryColor),
+                          fontSize: 16,
+                          color: colorPalette.secondaryColor,
+                        ),
                       ),
                       Text(
-                        "Piso ${values["piso"]}",
+                        "Piso ${values.floor}",
                         style: TextStyle(
-                            fontSize: 16, color: colorPalette.secondaryColor),
+                          fontSize: 16,
+                          color: colorPalette.secondaryColor,
+                        ),
                       ),
                     ],
                   ),
@@ -145,20 +167,26 @@ class CardPost extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      '${comunas[values['comuna']]}',
+                      '${comunas[values.comuna]}',
                       style: TextStyle(
-                          fontSize: 16, color: colorPalette.secondaryColor),
+                        fontSize: 16,
+                        color: colorPalette.secondaryColor,
+                      ),
                     ),
                     Padding(
-                        padding: const EdgeInsets.only(left: 30),
-                        child: IconButton.filled(
-                            color: const Color(0xFF1F2639),
-                            iconSize: 25,
-                            onPressed: () {
-                              context.go('/property');
-                            },
-                            icon: const Icon(
-                                color: Colors.white, Icons.arrow_forward))),
+                      padding: const EdgeInsets.only(left: 30),
+                      child: IconButton.filled(
+                        color: const Color(0xFF1F2639),
+                        iconSize: 25,
+                        onPressed: () {
+                          context.go('/property/${values.postId}');
+                        },
+                        icon: const Icon(
+                          color: Colors.white,
+                          Icons.arrow_forward,
+                        ),
+                      ),
+                    ),
                   ],
                 ),
               ],

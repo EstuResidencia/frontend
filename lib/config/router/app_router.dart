@@ -67,17 +67,16 @@ final appRouter = GoRouter(
             return const SearchPlaceView();
           },
         ),
-
-
       ],
     ),
-            GoRoute(
-          path: '/property',
-          name: PropertyDetailScreen.name,
-          builder: (context, state) {
-            return const PropertyDetailScreen();
-          },
-        ),
+    GoRoute(
+      path: '/property/:postId',
+      name: PropertyDetailScreen.name,
+      builder: (context, state) {
+        final postId = state.pathParameters['postId'] ?? '0';
+        return PropertyDetailScreen(postId: int.parse(postId));
+      },
+    ),
     GoRoute(
       path: '/validate/:role',
       name: ValidationScreen.name,
