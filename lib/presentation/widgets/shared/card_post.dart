@@ -150,17 +150,15 @@ class CardPost extends StatelessWidget {
                           fontSize: 16, color: colorPalette.secondaryColor),
                     ),
                     Padding(
-                      padding: const EdgeInsets.only(left: 30),
-                      child: IconButton.filled(
-                        color: const Color(0xFF1F2639),
-                        iconSize: 25,
-                        onPressed: () {
-                          context.go('/');
-                        },
-                        icon: const Icon(
-                            color: Colors.white, Icons.arrow_forward),
-                      ),
-                    ),
+                        padding: const EdgeInsets.only(left: 30),
+                        child: IconButton.filled(
+                            color: const Color(0xFF1F2639),
+                            iconSize: 25,
+                            onPressed: () {
+                              context.go('/property');
+                            },
+                            icon: const Icon(
+                                color: Colors.white, Icons.arrow_forward))),
                   ],
                 ),
               ],

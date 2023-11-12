@@ -67,8 +67,17 @@ final appRouter = GoRouter(
             return const SearchPlaceView();
           },
         ),
+
+
       ],
     ),
+            GoRoute(
+          path: '/property',
+          name: PropertyDetailScreen.name,
+          builder: (context, state) {
+            return const PropertyDetailScreen();
+          },
+        ),
     GoRoute(
       path: '/validate/:role',
       name: ValidationScreen.name,
