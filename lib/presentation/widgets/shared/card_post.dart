@@ -140,7 +140,7 @@ class CardPost extends StatelessWidget {
                             color: const Color(0xFF1F2639),
                             iconSize: 25,
                             onPressed: () {
-                              context.go('/');
+                              context.go('/property');
                             },
                             icon: const Icon(
                                 color: Colors.white, Icons.arrow_forward))),
