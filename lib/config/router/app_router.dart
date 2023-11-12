@@ -77,5 +77,13 @@ final appRouter = GoRouter(
         return ValidationScreen(role: int.parse(stepIndex));
       },
     ),
+    GoRoute(
+      path: '/publish/:step',
+      name: PublishPropertyScreen.name,
+      builder: (context, state) {
+        final stepIndex = state.pathParameters['step'] ?? '0';
+        return PublishPropertyScreen(stepIndex: int.parse(stepIndex));
+      },
+    ),
   ],
 );

@@ -91,7 +91,9 @@ class _OwnerUserView extends ConsumerWidget {
             const SizedBox(height: 6),
             TertiaryButton(
               text: 'Publicar inmueble',
-              onPressed: () {},
+              onPressed: () {
+                context.go('/publish/0');
+              },
             ),
             const SizedBox(height: 40),
             SecondaryButton(

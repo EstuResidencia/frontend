@@ -70,3 +70,44 @@ showErrorDialog(BuildContext context, String? message) {
     },
   );
 }
+
+showSuccessDialog(BuildContext context, String? message,
+    {Function()? onPressed}) {
+  AlertDialog alert = AlertDialog(
+    titlePadding: const EdgeInsets.all(0),
+    content: Text(
+      message ?? 'Ocurrió un error',
+      style: const TextStyle(
+        fontSize: 18.0,
+        fontWeight: FontWeight.normal,
+      ),
+    ),
+    contentPadding: const EdgeInsets.fromLTRB(20, 20, 20, 0),
+    actionsPadding: const EdgeInsets.fromLTRB(20, 10, 20, 20),
+    actionsAlignment: MainAxisAlignment.center,
+    actions: [
+      TextButton(
+        onPressed: onPressed ??
+            () {
+              Navigator.of(context, rootNavigator: true).pop();
+            },
+        style: TextButton.styleFrom(
+          foregroundColor: const Color(0xFF5E82C8),
+        ),
+        child: const Text(
+          'Ok',
+          style: TextStyle(
+            fontSize: 18.0,
+            fontWeight: FontWeight.normal,
+          ),
+        ),
+      ),
+    ],
+  );
+  showDialog(
+    context: context,
+    builder: (BuildContext context) {
+      return alert;
+    },
+  );
+}

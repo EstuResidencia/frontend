@@ -58,7 +58,7 @@ class Step2TermsView extends ConsumerWidget {
             ),
             Expanded(
               child: Text(
-                'He leído y acecpto los documentos anteriores.',
+                'He leído y acepto los documentos anteriores.',
                 textAlign: TextAlign.start,
                 style: TextStyle(
                   fontSize: 15.0,

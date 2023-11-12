@@ -1,5 +1,4 @@
 // ignore_for_file: use_build_context_synchronously
-
 import 'package:estu_residencia_app/domain/entities/user.dart';
 import 'package:estu_residencia_app/infrastructure/datasources/backend_user_datasourcer.dart';
 import 'package:estu_residencia_app/presentation/widgets/shared/alerts.dart';

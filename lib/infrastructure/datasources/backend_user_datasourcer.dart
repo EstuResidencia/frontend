@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:estu_residencia_app/domain/entities/post.dart';
 import 'package:estu_residencia_app/providers/register_provider.dart';
 import 'package:flutter/services.dart';
 import 'package:estu_residencia_app/domain/datasources/user_datasource.dart';
@@ -77,6 +78,47 @@ class BackendUserDataSource extends UserDataSource {
         },
       );
       return User.fromJson(response.data['usuario']);
+    } on DioException catch (e) {
+      if (e.response?.statusCode == 400) {
+        throw PlatformException(
+          code: '400',
+          message: e.response?.data.toString(),
+        );
+      } else {
+        throw PlatformException(
+          code: '500',
+          message: e.response?.data.toString(),
+        );
+      }
+    }
+  }
+
+  @override
+  Future<Post> createPost({
+    required int userId,
+    required String description,
+    required String direccion,
+    required int comuna,
+    required int canonCop,
+    required int areaM2,
+    required int floor,
+    required List<PostImage> images,
+  }) async {
+    try {
+      Response response = await Dio().post(
+        'https://estu-residencia-api.onrender.com/publicacion/',
+        data: {
+          'usuario': userId,
+          'descripcion': description,
+          'direccion': direccion,
+          'comuna': comuna,
+          'canon_cop': canonCop,
+          'area_m2': areaM2,
+          'piso': floor,
+          'imagenes': images.map((e) => e.data).toList(),
+        },
+      );
+      return Post.fromJson(response.data['publicacion']);
     } on DioException catch (e) {
       if (e.response?.statusCode == 400) {
         throw PlatformException(
