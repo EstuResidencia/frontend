@@ -2,18 +2,30 @@ import 'package:estu_residencia_app/providers/theme_colors_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-
 List<Map<String, dynamic>> estados = [
-  {'estado':'Pendiente', 'color':const Color(0xFFE87D00)},
-  {'estado':'Aprobada', 'color':const Color(0xFF138F17)},
-  {'estado':'Cancelada', 'color':const Color(0xFF19569F)},
-  {'estado':'Rechazada', 'color':const Color.fromARGB(255, 232, 5, 5)}
+  {'estado': 'Pendiente', 'color': const Color(0xFFE87D00)},
+  {'estado': 'Aprobada', 'color': const Color(0xFF138F17)},
+  {'estado': 'Cancelada', 'color': const Color(0xFF19569F)},
+  {'estado': 'Rechazada', 'color': const Color.fromARGB(255, 232, 5, 5)}
 ];
 
-var  comunas = {1 : 'Popular',2 : 'Santa Cruz', 3 : 'Manrique', 4 : 'Aranjuez',
-              5 : 'Castilla', 6 : 'Doce de octubre', 7 : 'Robledo', 8 : 'Villa hermosa',
-9 : 'Buenos Aires',10 : 'La Candelaria',11 : "Laureles Estadio",12 : 'La América',
-13 : 'San Javier',14 : 'El Poblado',15 : 'Guayabal',16 : 'Belén'
+var comunas = {
+  1: 'Popular',
+  2: 'Santa Cruz',
+  3: 'Manrique',
+  4: 'Aranjuez',
+  5: 'Castilla',
+  6: 'Doce de octubre',
+  7: 'Robledo',
+  8: 'Villa hermosa',
+  9: 'Buenos Aires',
+  10: 'La Candelaria',
+  11: "Laureles Estadio",
+  12: 'La América',
+  13: 'San Javier',
+  14: 'El Poblado',
+  15: 'Guayabal',
+  16: 'Belén'
 };
 
 class CardPost extends StatelessWidget {
@@ -45,10 +57,10 @@ class CardPost extends StatelessWidget {
           ),
           const SizedBox(width: 12),
           Expanded(
-              child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
                 const SizedBox(height: 5),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -64,15 +76,18 @@ class CardPost extends StatelessWidget {
                         alignment: Alignment.centerRight,
                         decoration: BoxDecoration(
                           border: Border.all(
-                            color: estados[values["status"]-1]['color'] as Color,
+                            color:
+                                estados[values["status"] - 1]['color'] as Color,
                             width: 1,
                           ),
                           borderRadius: BorderRadius.circular(8),
                         ),
                         child: Text(
-                          '${estados[values["status"]-1]['estado']}',
-                          style:
-                              TextStyle(fontSize: 11, color: estados[values["status"]-1]['color'] as Color),
+                          '${estados[values["status"] - 1]['estado']}',
+                          style: TextStyle(
+                              fontSize: 11,
+                              color: estados[values["status"] - 1]['color']
+                                  as Color),
                         ),
                       ),
                     ),
@@ -135,18 +150,22 @@ class CardPost extends StatelessWidget {
                           fontSize: 16, color: colorPalette.secondaryColor),
                     ),
                     Padding(
-                        padding: const EdgeInsets.only(left: 30),
-                        child: IconButton.filled(
-                            color: const Color(0xFF1F2639),
-                            iconSize: 25,
-                            onPressed: () {
-                              context.go('/');
-                            },
-                            icon: const Icon(
-                                color: Colors.white, Icons.arrow_forward))),
+                      padding: const EdgeInsets.only(left: 30),
+                      child: IconButton.filled(
+                        color: const Color(0xFF1F2639),
+                        iconSize: 25,
+                        onPressed: () {
+                          context.go('/');
+                        },
+                        icon: const Icon(
+                            color: Colors.white, Icons.arrow_forward),
+                      ),
+                    ),
                   ],
                 ),
-              ]))
+              ],
+            ),
+          )
         ],
       ),
     );
