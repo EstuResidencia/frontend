@@ -36,6 +36,7 @@ class CardPost extends StatelessWidget {
   final double elevation;
   final Post values;
   final ColorPalette colorPalette;
+  final bool isRequest;
 
   const CardPost({
     super.key,
@@ -43,6 +44,7 @@ class CardPost extends StatelessWidget {
     required this.elevation,
     required this.values,
     required this.colorPalette,
+    required this.isRequest,
   });
 
   @override
@@ -175,17 +177,19 @@ class CardPost extends StatelessWidget {
                     ),
                     Padding(
                       padding: const EdgeInsets.only(left: 30),
-                      child: IconButton.filled(
-                        color: const Color(0xFF1F2639),
-                        iconSize: 25,
-                        onPressed: () {
-                          context.go('/property/${values.postId}');
-                        },
-                        icon: const Icon(
-                          color: Colors.white,
-                          Icons.arrow_forward,
-                        ),
-                      ),
+                      child: isRequest
+                          ? const SizedBox()
+                          : IconButton.filled(
+                              color: const Color(0xFF1F2639),
+                              iconSize: 25,
+                              onPressed: () {
+                                context.go('/property/${values.postId}');
+                              },
+                              icon: const Icon(
+                                color: Colors.white,
+                                Icons.arrow_forward,
+                              ),
+                            ),
                     ),
                   ],
                 ),
