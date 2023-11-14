@@ -134,7 +134,7 @@ class CardPost extends StatelessWidget {
                         color: colorPalette.secondaryColor,
                       ),
                       Text(
-                        "${values.canonCop} COP/mes",
+                        "${formatearNumeroConPuntos(values.canonCop)} COP/mes",
                         style: TextStyle(
                           fontSize: 16,
                           color: colorPalette.secondaryColor,
@@ -184,6 +184,8 @@ class CardPost extends StatelessWidget {
                               iconSize: 25,
                               onPressed: () {
                                 context.go('/property/${values.postId}');
+                                print(values.calificacion);
+                                print(values.status);
                               },
                               icon: const Icon(
                                 color: Colors.white,
@@ -201,3 +203,11 @@ class CardPost extends StatelessWidget {
     );
   }
 }
+// Formatea el número con puntos en los miles
+String formatearNumeroConPuntos(int numero) {
+    
+    return numero.toString().replaceAllMapped(
+      RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'),
+      (Match match) => '${match[1]}.',
+    );
+  }

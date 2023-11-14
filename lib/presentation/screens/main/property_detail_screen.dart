@@ -6,6 +6,7 @@ import 'package:estu_residencia_app/domain/entities/post.dart';
 import 'package:estu_residencia_app/domain/entities/user.dart';
 import 'package:estu_residencia_app/infrastructure/datasources/backend_user_datasourcer.dart';
 import 'package:estu_residencia_app/presentation/widgets/shared/alerts.dart';
+import 'package:estu_residencia_app/presentation/widgets/shared/gallery_property_slide.dart';
 import 'package:estu_residencia_app/presentation/widgets/shared/review_slide.dart';
 import 'package:estu_residencia_app/providers/global_provider.dart';
 import 'package:estu_residencia_app/providers/publish_provider.dart';
@@ -23,6 +24,24 @@ List<Map<String, dynamic>> estados = [
   {'estado': 'Rechazada', 'color': const Color.fromARGB(255, 232, 5, 5)}
 ];
 
+var comunas = {
+  1: 'Popular',
+  2: 'Santa Cruz',
+  3: 'Manrique',
+  4: 'Aranjuez',
+  5: 'Castilla',
+  6: 'Doce de octubre',
+  7: 'Robledo',
+  8: 'Villa hermosa',
+  9: 'Buenos Aires',
+  10: 'La Candelaria',
+  11: "Laureles Estadio",
+  12: 'La América',
+  13: 'San Javier',
+  14: 'El Poblado',
+  15: 'Guayabal',
+  16: 'Belén'
+};
 class PropertyDetailScreen extends ConsumerWidget {
   static const name = 'property-detail-screen';
 
@@ -111,7 +130,7 @@ class PropertyDetailScreen extends ConsumerWidget {
                             Icon(Icons.location_on_outlined,
                                 color: colorPalette.secondaryColor),
                             Text(
-                              post.direccion,
+                              "${post.direccion} , ${comunas[post.comuna]}",
                               style: TextStyle(
                                   fontSize: 16,
                                   color: colorPalette.secondaryColor),
@@ -127,7 +146,7 @@ class PropertyDetailScreen extends ConsumerWidget {
                             Icon(Icons.attach_money_outlined,
                                 color: colorPalette.secondaryColor),
                             Text(
-                              "${post.canonCop} COP/mes",
+                              "${formatearNumeroConPuntos(post.canonCop)} COP/mes",
                               style: TextStyle(
                                 fontSize: 20,
                                 color: colorPalette.secondaryColor,
@@ -171,7 +190,7 @@ class PropertyDetailScreen extends ConsumerWidget {
                             ),
                             RatingBarIndicator(
                               unratedColor: Colors.black26,
-                              rating: 3,
+                              rating: (post.calificacion/2).toDouble(),
                               itemBuilder: (context, index) => Icon(
                                 Icons.star_rounded,
                                 color: colorPalette.primaryDarkenColor,
@@ -228,13 +247,17 @@ class PropertyDetailScreen extends ConsumerWidget {
                         color: colorPalette.secondaryColor,
                       ),
                       Text(
-                        "Reseñas",
+                        "Galería",
                         style: TextStyle(
                             fontSize: 30,
                             fontWeight: FontWeight.bold,
                             color: colorPalette.secondaryColor),
                       ),
-                      const ReviewsSlideshow(),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      GallerySlideshow(images: post.images ),
+                      //const ReviewsSlideshow(),
                       const SizedBox(
                         height: 50,
                       )
@@ -317,3 +340,12 @@ class _DividerAtributes extends StatelessWidget {
     );
   }
 }
+
+// Formatea el número con puntos en los miles
+String formatearNumeroConPuntos(int numero) {
+    
+    return numero.toString().replaceAllMapped(
+      RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'),
+      (Match match) => '${match[1]}.',
+    );
+  }

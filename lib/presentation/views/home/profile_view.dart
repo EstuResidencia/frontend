@@ -24,7 +24,7 @@ class ProfileView extends ConsumerWidget {
                 padding: EdgeInsets.fromLTRB(40, 40, 40, 20),
                 child: CircleAvatar(
                   backgroundImage: NetworkImage(
-                      'https://t4.ftcdn.net/jpg/03/49/49/79/360_F_349497933_Ly4im8BDmHLaLzgyKg2f2yZOvJjBtlw5.webp'),
+                      'https://loremflickr.com/400/400/galaxy'),
                   radius: 100,
                 ),
               ),
