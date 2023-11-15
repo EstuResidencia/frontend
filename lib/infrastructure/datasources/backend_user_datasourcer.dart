@@ -234,12 +234,12 @@ class BackendUserDataSource extends UserDataSource {
   }
 
     @override
-  Future<Post> deletePostById(int postId) async {
+  Future<void> deletePostById(int postId) async {
     try {
-      Response response = await Dio().delete(
+      await Dio().delete(
         'http://ec2-52-3-220-232.compute-1.amazonaws.com:8000/publicacion/$postId/',
       );
-      return Post.fromJson(response.data);
+      return ;
     } on DioException catch (e) {
       if (e.response?.statusCode == 400) {
         throw PlatformException(

@@ -28,7 +28,7 @@ abstract class UserDataSource {
 
   Future<Post> getPostById(int postId);
 
-  Future<Post> deletePostById(int postId);
+  Future<void> deletePostById(int postId);
 
   Future<List<Post>> getOwnerPosts({
     required int arrendadorId,

@@ -2,6 +2,7 @@
 
 import 'dart:convert';
 
+import 'package:dio/dio.dart';
 import 'package:estu_residencia_app/domain/entities/post.dart';
 import 'package:estu_residencia_app/domain/entities/user.dart';
 import 'package:estu_residencia_app/infrastructure/datasources/backend_user_datasourcer.dart';
@@ -42,6 +43,7 @@ var comunas = {
   15: 'Guayabal',
   16: 'Belén'
 };
+
 class PropertyDetailScreen extends ConsumerWidget {
   static const name = 'property-detail-screen';
 
@@ -91,7 +93,17 @@ class PropertyDetailScreen extends ConsumerWidget {
                   children: [
                     IconButton(onPressed: () {}, icon: const Icon(Icons.edit)),
                     IconButton(
-                        onPressed: () {},
+                        onPressed: () async {
+                          try {
+                            await BackendUserDataSource()
+                                .deletePostById(post!.postId);
+                            showSuccessDialog(
+                                context, "Eliminado correctamente",
+                                onPressed: () => context.go("/"));
+                          } on DioException catch (e) {
+                            showErrorDialog(context, "Ha ocurrido un error");
+                          }
+                        },
                         icon: const Icon(Icons.delete_outline_outlined)),
                   ],
                 )
@@ -190,7 +202,7 @@ class PropertyDetailScreen extends ConsumerWidget {
                             ),
                             RatingBarIndicator(
                               unratedColor: Colors.black26,
-                              rating: (post.calificacion/2).toDouble(),
+                              rating: (post.calificacion / 2).toDouble(),
                               itemBuilder: (context, index) => Icon(
                                 Icons.star_rounded,
                                 color: colorPalette.primaryDarkenColor,
@@ -256,7 +268,7 @@ class PropertyDetailScreen extends ConsumerWidget {
                       const SizedBox(
                         height: 10,
                       ),
-                      GallerySlideshow(images: post.images ),
+                      GallerySlideshow(images: post.images),
                       //const ReviewsSlideshow(),
                       const SizedBox(
                         height: 50,
@@ -343,9 +355,8 @@ class _DividerAtributes extends StatelessWidget {
 
 // Formatea el número con puntos en los miles
 String formatearNumeroConPuntos(int numero) {
-    
-    return numero.toString().replaceAllMapped(
-      RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'),
-      (Match match) => '${match[1]}.',
-    );
-  }
+  return numero.toString().replaceAllMapped(
+        RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'),
+        (Match match) => '${match[1]}.',
+      );
+}
