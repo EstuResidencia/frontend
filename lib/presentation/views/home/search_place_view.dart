@@ -1,6 +1,8 @@
 import 'package:estu_residencia_app/domain/entities/post.dart';
 import 'package:estu_residencia_app/infrastructure/datasources/backend_user_datasourcer.dart';
 import 'package:estu_residencia_app/presentation/widgets/shared/card_post.dart';
+import 'package:estu_residencia_app/presentation/widgets/shared/windows/filter_window.dart';
+import 'package:estu_residencia_app/presentation/widgets/shared/windows/sort_window.dart';
 import 'package:estu_residencia_app/providers/publish_provider.dart';
 import 'package:estu_residencia_app/providers/theme_colors_provider.dart';
 import 'package:flutter/material.dart';
@@ -20,7 +22,14 @@ class SearchPlaceView extends ConsumerWidget {
             Directionality(
               textDirection: TextDirection.rtl,
               child: TextButton.icon(
-                onPressed: () {},
+                onPressed: () => showDialog<String>(
+            context: context,
+            builder: (BuildContext context) => const Dialog(
+              child: SizedBox(
+                height: 550,
+                child: FilterWindow()),
+            ),
+          ),
                 icon: Icon(
                   Icons.filter_list_alt,
                   color: colorPalette.secondaryColor,
@@ -38,7 +47,15 @@ class SearchPlaceView extends ConsumerWidget {
             Directionality(
               textDirection: TextDirection.rtl,
               child: TextButton.icon(
-                onPressed: () {},
+                onPressed: () => showDialog(
+            context: context,
+            builder: (BuildContext context) => const Dialog(
+              child: SizedBox(
+                height: 400,
+                child: SortWindow(),
+              ),
+            ),
+          ),
                 icon: Icon(
                   Icons.sort_outlined,
                   color: colorPalette.secondaryColor,

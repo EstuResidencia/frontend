@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 
-final List<String> comunas = [ 'Popular',
+final List<String> comunas = [ 'Todas','Popular',
  'Santa Cruz',
  'Manrique',
  'Aranjuez',
@@ -51,7 +51,7 @@ class FilterWindow extends ConsumerWidget {
                IconButton(
             icon: const Icon(Icons.navigate_before_rounded),
             onPressed: () {
-               filterComuna <1? ref.read(filterComunaProvider.notifier).state = 15 : ref.read(filterComunaProvider.notifier).state--  ;
+               filterComuna <1? ref.read(filterComunaProvider.notifier).state = 16 : ref.read(filterComunaProvider.notifier).state--  ;
             },
           ),
               Text(
@@ -63,7 +63,7 @@ class FilterWindow extends ConsumerWidget {
               IconButton(
             icon: const Icon(Icons.navigate_next_rounded),
             onPressed: () {
-               filterComuna >14? ref.read(filterComunaProvider.notifier).state = 0 : ref.read(filterComunaProvider.notifier).state++  ;
+               filterComuna >15? ref.read(filterComunaProvider.notifier).state = 0 : ref.read(filterComunaProvider.notifier).state++  ;
             },
           ),
             ],
