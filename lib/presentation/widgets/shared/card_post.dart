@@ -78,12 +78,17 @@ class CardPost extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text(
-                      (values.calificacion / 2).toStringAsFixed(1),
-                      style: const TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold,
-                      ),
+                    Row(
+                      children: [
+                        Text(
+                          (values.calificacion / 2).toStringAsFixed(1),
+                          style: const TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        Icon(Icons.star_rounded, size:16, color: colorPalette.primaryDarkenColor)
+                      ],
                     ),
                     Padding(
                       padding: const EdgeInsets.fromLTRB(0, 0, 10, 0),

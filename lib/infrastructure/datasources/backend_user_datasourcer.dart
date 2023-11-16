@@ -11,7 +11,7 @@ class BackendUserDataSource extends UserDataSource {
   Future<User> registerUser(UserRegister user) async {
     try {
       Response response = await Dio().post(
-        'http://ec2-52-3-220-232.compute-1.amazonaws.com:8000/register/',
+        'http://54.174.237.112:8000/register/',
         data: {
           'nombre': user.name,
           'correo': user.email,
@@ -39,7 +39,7 @@ class BackendUserDataSource extends UserDataSource {
   Future<User> loginUser(String email, String password) async {
     try {
       Response response = await Dio().post(
-        'http://ec2-52-3-220-232.compute-1.amazonaws.com:8000/login/',
+        'http://54.174.237.112:8000/login/',
         data: {
           'correo': email,
           'password': password,
@@ -70,7 +70,7 @@ class BackendUserDataSource extends UserDataSource {
   }) async {
     try {
       Response response = await Dio().patch(
-        'http://ec2-52-3-220-232.compute-1.amazonaws.com:8000/usuario/$userId/',
+        'http://54.174.237.112:8000/usuario/$userId/',
         data: {
           'tipo_documento': docType,
           'documento': documentNumber,
@@ -107,7 +107,7 @@ class BackendUserDataSource extends UserDataSource {
   }) async {
     try {
       Response response = await Dio().post(
-        'http://ec2-52-3-220-232.compute-1.amazonaws.com:8000/publicacion/',
+        'http://54.174.237.112:8000/publicacion/',
         data: {
           'usuario': userId,
           'descripcion': description,
@@ -141,7 +141,7 @@ class BackendUserDataSource extends UserDataSource {
   }) async {
     try {
       Response response = await Dio().get(
-        'http://ec2-52-3-220-232.compute-1.amazonaws.com:8000/publicacion/listar/$arrendadorId/',
+        'http://54.174.237.112:8000/publicacion/listar/$arrendadorId/',
       );
       final result =
           (response.data as List).map((e) => Post.fromJson(e)).toList();
@@ -165,7 +165,7 @@ class BackendUserDataSource extends UserDataSource {
   Future<List<Post>> getAllPosts() async {
     try {
       Response response = await Dio().get(
-        'http://ec2-52-3-220-232.compute-1.amazonaws.com:8000/publicacion/',
+        'http://54.174.237.112:8000/publicacion/',
       );
       final result =
           (response.data as List).map((e) => Post.fromJson(e)).toList();
@@ -189,7 +189,7 @@ class BackendUserDataSource extends UserDataSource {
   Future<Request> createRequest(int userId, int postId) async {
     try {
       Response response = await Dio().post(
-        'http://ec2-52-3-220-232.compute-1.amazonaws.com:8000/solicitud/',
+        'http://54.174.237.112:8000/solicitud/',
         data: {
           'usuario': userId,
           'publicacion': postId,
@@ -215,7 +215,7 @@ class BackendUserDataSource extends UserDataSource {
   Future<Post> getPostById(int postId) async {
     try {
       Response response = await Dio().get(
-        'http://ec2-52-3-220-232.compute-1.amazonaws.com:8000/publicacion/$postId/',
+        'http://54.174.237.112:8000/publicacion/$postId/',
       );
       return Post.fromJson(response.data);
     } on DioException catch (e) {
@@ -237,7 +237,7 @@ class BackendUserDataSource extends UserDataSource {
   Future<void> deletePostById(int postId) async {
     try {
       await Dio().delete(
-        'http://ec2-52-3-220-232.compute-1.amazonaws.com:8000/publicacion/$postId/',
+        'http://54.174.237.112:8000/publicacion/$postId/',
       );
       return ;
     } on DioException catch (e) {
@@ -260,7 +260,7 @@ class BackendUserDataSource extends UserDataSource {
     try {
       final String endPointType = role == 1 ? 'arrendador' : 'estudiante';
       Response response = await Dio().get(
-        'http://ec2-52-3-220-232.compute-1.amazonaws.com:8000/solicitud/$endPointType/$userId/',
+        'http://54.174.237.112:8000/solicitud/$endPointType/$userId/',
       );
       var result =
           (response.data as List).map((e) => Request.fromJson(e)).toList();

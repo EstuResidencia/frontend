@@ -33,10 +33,10 @@ class GallerySlideshow extends StatelessWidget {
       child: Swiper(
         viewportFraction: 0.8,
         scale: 0.9,
-        autoplay: false,
+        autoplay: true,
         itemCount: images.length,
         itemBuilder: (context, index) => _Slide(
-            dataImage: images[index].data, titulo: titulosGaleria[index < 4 ? index : 5]),
+            dataImage: images[index].data, titulo: titulosGaleria[index < 5 ? index : 5]),
       ),
     );
   }
